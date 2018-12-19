@@ -14,6 +14,7 @@ public:
   BigInteger();
   BigInteger(string s);
   void setNumber(string s);
+  void inputNumber();
   const string &getNumber();
   void setSign(bool s);
   const bool &getSign();
@@ -47,11 +48,18 @@ private:
 int main() {
   BigInteger *pNum1 = new BigInteger();
   BigInteger *pNum2 = new BigInteger();
-  pNum1->setNumber("52252562656652363265235632562356");
-  pNum2->setNumber("64114161661611");
+  //pNum1->setNumber("52252562656652363265235632562356");
+  //pNum2->setNumber("64114161661611");
+  pNum1->inputNumber();
+  pNum2->inputNumber();
   std::cout << ((*pNum1) / (*pNum2)).getNumber() << std::endl;
   std::cout << ((*pNum1) % (*pNum2)).getNumber() << std::endl;
+  delete (pNum1);delete (pNum2);
   return 0;
+}
+void BigInteger::inputNumber(){
+    std::cout << "Enter value:" << std::endl;
+    std::cin >> this->number;
 }
 BigInteger::BigInteger() { // empty constructor initializes zero
   number = "0";
