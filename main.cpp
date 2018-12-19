@@ -48,40 +48,41 @@ private:
 int main() {
   BigInteger *pNum1 = new BigInteger();
   BigInteger *pNum2 = new BigInteger();
-  //pNum1->setNumber("52252562656652363265235632562356");
-  //pNum2->setNumber("64114161661611");
+  // pNum1->setNumber("52252562656652363265235632562356");
+  // pNum2->setNumber("64114161661611");
   pNum1->inputNumber();
   pNum2->inputNumber();
-  std::cout << ((*pNum1) / (*pNum2)).getNumber() << std::endl;
-  std::cout << ((*pNum1) % (*pNum2)).getNumber() << std::endl;
-  delete (pNum1);delete (pNum2);
+  std::cout << "div = " << ((*pNum1) / (*pNum2)).getNumber() << std::endl;
+  std::cout << "remainder = " << ((*pNum1) % (*pNum2)).getNumber() << std::endl;
+  delete (pNum1);
+  delete (pNum2);
   return 0;
 }
-void BigInteger::inputNumber(){
-    std::cout << "Enter value:" << std::endl;
-    std::cin >> this->number;
+void BigInteger::inputNumber() {
+  std::cout << "Enter value:" << std::endl;
+  std::cin >> this->number;
 }
 BigInteger::BigInteger() { // empty constructor initializes zero
   number = "0";
   sign = false;
 }
-BigInteger::BigInteger(string s) { // "string" constructor
-  if (isdigit(s[0])) {             // if not signed
+BigInteger::BigInteger(string s) {
+  if (isdigit(s[0])) {
     setNumber(s);
-    sign = false; // +ve
+    sign = false;
   } else {
     setNumber(s.substr(1));
     sign = (s[0] == '-');
   }
 }
 void BigInteger::setNumber(string s) { number = s; }
-const string &BigInteger::getNumber() { // retrieves the number
+const string &BigInteger::getNumber() {
   return number;
 }
 void BigInteger::setSign(bool s) { sign = s; }
 const bool &BigInteger::getSign() { return sign; }
 BigInteger BigInteger::absolute() {
-  return BigInteger(getNumber()); // +ve by default
+  return BigInteger(getNumber());
 }
 void BigInteger::operator=(BigInteger b) {
   setNumber(b.getNumber());
@@ -136,12 +137,12 @@ BigInteger BigInteger::operator%(BigInteger b) {
   long long rem_int = divide(number, den).second;
   rem.setNumber(toString(rem_int));
   rem.setSign(getSign() != b.getSign());
-  if (rem.getNumber() == "0") // avoid (-0) problem
+  if (rem.getNumber() == "0")
     rem.setSign(false);
   return rem;
 }
-BigInteger::operator string() { // for conversion from BigInteger to string
-  string signedString = (getSign()) ? "-" : ""; // if +ve, don't print + sign
+BigInteger::operator string() {
+  string signedString = (getSign()) ? "-" : "";
   signedString += number;
   return signedString;
 }
@@ -151,7 +152,7 @@ bool BigInteger::equals(BigInteger n1, BigInteger n2) {
 bool BigInteger::less(BigInteger n1, BigInteger n2) {
   bool sign1 = n1.getSign();
   bool sign2 = n2.getSign();
-  if (sign1 && !sign2) // if n1 is -ve and n2 is +ve
+  if (sign1 && !sign2)
     return true;
   else if (!sign1 && sign2)
     return false;
@@ -167,7 +168,7 @@ bool BigInteger::less(BigInteger n1, BigInteger n2) {
     if (n1.getNumber().length() < n2.getNumber().length())
       return false;
     return n1.getNumber().compare(n2.getNumber()) >
-           0; // greater with -ve sign is LESS
+           0;
   }
 }
 bool BigInteger::greater(BigInteger n1, BigInteger n2) {
